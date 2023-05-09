@@ -1,7 +1,8 @@
-package UsedStore.storeback;
+package UsedStore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 @SpringBootApplication
 public class StoreBackApplication {
