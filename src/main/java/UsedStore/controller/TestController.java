@@ -22,6 +22,7 @@ public class TestController {
         model.addAttribute("testList", testList);
         return "test.html";
     }
+
     @GetMapping("/")
     public String find() {
         return "test.html";

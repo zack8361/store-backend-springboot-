@@ -2,6 +2,7 @@ package UsedStore.model;
 
 import lombok.Data;
 
+// 데이터 담을 클래스
 @Data
 public class Test {
     private String user_id;
