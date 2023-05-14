@@ -1,0 +1,19 @@
+package UsedStore.Service;
+
+import UsedStore.Dao.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+//TestMapper 인터페이스 받아 데이터 조회하는 클래스
+
+@Service
+@Transactional
+public class UserService {
+    @Autowired
+    private UserDao userDao;
+
+    public void insertTest(){
+        userDao.insertTest();
+    }
+}

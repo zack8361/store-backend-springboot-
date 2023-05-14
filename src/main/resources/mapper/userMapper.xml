@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mapper.userMapper">
+
+	<insert id="insertTest">
+		INSERT INTO user(`user_id`, `user_name`, `user_birthday`, `user_sex`, `user_phone`, `user_email`, `user_pw`, `user_nickname`)
+		VALUES ('이찬호', '이찬호', '이찬호', 1, '123', '123', '123', '123')
+	</insert>
+
+</mapper>
