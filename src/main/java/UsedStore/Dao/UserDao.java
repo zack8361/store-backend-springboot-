@@ -16,8 +16,8 @@ public class UserDao {
     @Autowired
     SqlSession sqlSession;
     private static String namespace = "mapper.userMapper";
-    public void insertTest(){
-        sqlSession.insert(namespace+".insertTest");
+    public void insertUser(HashMap<String,Object> map){
+        sqlSession.insert(namespace+".insertUser",map);
     }
 
     public UserVO login(HashMap<String, Object> map){

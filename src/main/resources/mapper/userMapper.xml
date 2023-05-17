@@ -7,11 +7,12 @@
 
 <mapper namespace="mapper.userMapper">
 
-	<insert id="insertTest">
-		INSERT INTO user(`user_id`, `user_name`, `user_birthday`, `user_sex`, `user_phone`, `user_email`, `user_pw`, `user_nickname`)
-		VALUES ('이찬호', '이찬호', '이찬호', 1, '123', '123', '123', '123')
+<!-- 회원 가입 처리.	-->
+	<insert id="insertUser" parameterType="map">
+		INSERT INTO user(user_email,user_pw,user_name,user_gender,user_phone,user_nickname)
+		VALUES (#{id},#{password},#{name},#{gender},#{phone},#{nickName})
 	</insert>
-	
+
 	<select id="login" parameterType="map" resultType="UsedStore.Vo.UserVO">
 		SELECT * FROM user
 		WHERE user_id = #{id}

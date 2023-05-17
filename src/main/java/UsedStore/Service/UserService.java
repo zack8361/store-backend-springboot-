@@ -15,9 +15,8 @@ import java.util.HashMap;
 public class UserService {
     @Autowired
     private UserDao userDao;
-
-    public void insertTest(){
-        userDao.insertTest();
+    public void insertUser(HashMap<String, Object> map){
+        userDao.insertUser(map);
     }
     public UserVO login(HashMap<String, Object> map){
         return userDao.login(map);
