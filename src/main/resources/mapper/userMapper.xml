@@ -13,6 +13,12 @@
 		VALUES (#{id},#{password},#{name},#{gender},#{phone},#{nickName})
 	</insert>
 
+<!-- 로그인 처리	-->
+	<select id="login" parameterType="map" resultType="UsedStore.Vo.UserVO">
+		SELECT * FROM user
+		WHERE user_email=#{id}
+		AND user_pw=#{password}
+	</select>
 <!-- Email 중복 처리.	-->
 	<select id="checkEmail" parameterType="map" resultType="UsedStore.Vo.UserVO">
 		SELECT * FROM user

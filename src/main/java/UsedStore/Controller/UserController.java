@@ -21,6 +21,21 @@ public class UserController {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @PostMapping("/login")
+    public ResponseEntity<Object> login(HttpSession session, @RequestBody HashMap<String,Object> map) throws Exception{
+        UserVO vo = userService.login(map);
+        HashMap<String,String> responseData = new HashMap<>();
+        if(vo == null){
+            responseData.put("status","500");
+            responseData.put("message","아이디 혹은 비밀번호를 확인해주세요");
+        }
+        else {
+            responseData.put("status","200");
+            responseData.put("message","로그인 성공하였습니다!");
+        }
+        String loginResult = objectMapper.writeValueAsString(responseData);
+        return ResponseEntity.ok(loginResult);
+    }
     @PostMapping("/register")
     public ResponseEntity<Object> register(HttpSession session, @RequestBody HashMap<String,Object> map ) throws Exception{
         System.out.println(map);
