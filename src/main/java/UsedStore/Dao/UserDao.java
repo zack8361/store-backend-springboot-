@@ -15,12 +15,26 @@ import java.util.HashMap;
 public class UserDao {
     @Autowired
     SqlSession sqlSession;
+
     private static String namespace = "mapper.userMapper";
-    public void insertUser(HashMap<String,Object> map){
-        sqlSession.insert(namespace+".insertUser",map);
+
+    // 회원가입
+    public int insertUser(HashMap<String,Object> map){
+        return sqlSession.insert(namespace+".insertUser",map);
     }
 
+    // 로그인
     public UserVO login(HashMap<String, Object> map){
        return sqlSession.selectOne(namespace +".login",map);
     }
+
+    // email 중복처리
+    public UserVO checkEmail(HashMap<String,Object> map){
+        return sqlSession.selectOne(namespace+".checkEmail",map);
+    }
+
+    public UserVO checkNickName(HashMap<String,Object> map){
+        return sqlSession.selectOne(namespace+".checkNickName",map);
+    }
+
 }

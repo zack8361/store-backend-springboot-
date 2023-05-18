@@ -13,10 +13,18 @@
 		VALUES (#{id},#{password},#{name},#{gender},#{phone},#{nickName})
 	</insert>
 
-	<select id="login" parameterType="map" resultType="UsedStore.Vo.UserVO">
+<!-- Email 중복 처리.	-->
+	<select id="checkEmail" parameterType="map" resultType="UsedStore.Vo.UserVO">
 		SELECT * FROM user
-		WHERE user_id = #{id}
-		AND user_pw = #{password}
+		WHERE user_email=#{id}
 	</select>
+
+<!-- nickName 중복처리.	-->
+
+	<select id="checkNickName" parameterType="map" resultType="UsedStore.Vo.UserVO">
+		SELECT * FROM user
+		WHERE user_nickname=#{nickName}
+	</select>
+
 
 </mapper>

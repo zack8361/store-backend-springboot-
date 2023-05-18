@@ -15,11 +15,25 @@ import java.util.HashMap;
 public class UserService {
     @Autowired
     private UserDao userDao;
-    public void insertUser(HashMap<String, Object> map){
-        userDao.insertUser(map);
+
+    // 회원가입
+    public int insertUser(HashMap<String, Object> map){
+        return userDao.insertUser(map);
     }
+
+    // 로그인
     public UserVO login(HashMap<String, Object> map){
         return userDao.login(map);
     }
-    
+
+    // 이메일 중복처리
+    public UserVO checkEmail(HashMap<String,Object> map){
+        return userDao.checkEmail(map);
+    }
+
+    // 닉네임 중복처리.
+    public UserVO checkNickName(HashMap<String,Object>map){
+        return userDao.checkNickName(map);
+    }
+
 }

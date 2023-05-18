@@ -7,12 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserVO {
-    private String userId;
-    private String userName;
-    private String userBirthday;
-    private int userSex;
-    private String userPhone;
     private String userEmail;
     private String userPw;
+    private String userName;
+    private String userGender;
+    private String userPhone;
     private String userNickname;
 }
