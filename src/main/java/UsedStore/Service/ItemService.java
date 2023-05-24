@@ -17,5 +17,4 @@ public class ItemService {
     public int insertSale(HashMap<String,Object>map){
         return itemDao.insertSale(map);
     }
-
 }
