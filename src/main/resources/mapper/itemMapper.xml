@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mapper.itemMapper">
+
+<!-- 물품 등록.	-->
+	<insert id="insertProduct" parameterType="map">
+		INSERT INTO item(user_id,item_name,item_content,item_price,category_id,item_gender,item_tag,item_title)
+		VALUES (#{id},#{itemName},#{editorText},#{itemPrice},#{categories},#{gender},#{saleTitle},#{saleTag})
+	</insert>
+
+</mapper>

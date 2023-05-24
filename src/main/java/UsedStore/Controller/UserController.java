@@ -23,6 +23,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(HttpSession session, @RequestBody HashMap<String,Object> map) throws Exception{
+
         UserVO vo = userService.login(map);
         HashMap<String,String> responseData = new HashMap<>();
         if(vo == null){
@@ -38,8 +39,8 @@ public class UserController {
     }
     @PostMapping("/register")
     public ResponseEntity<Object> register(HttpSession session, @RequestBody HashMap<String,Object> map ) throws Exception{
+        
         System.out.println(map);
-
         int result = userService.insertUser(map);
         HashMap<String,String> responseData = new HashMap<>();
 
@@ -59,8 +60,8 @@ public class UserController {
     public ResponseEntity<Object> checkEmail (HttpSession session,@RequestBody HashMap<String,Object> map) throws Exception{
 
         UserVO vo = userService.checkEmail(map);
-        HashMap<String,String> responseData = new HashMap<>();
 
+        HashMap<String,String> responseData = new HashMap<>();
         // 데이터가 담겨있다면.
         if(vo == null){
             responseData.put("status","200");
