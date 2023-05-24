@@ -2,17 +2,16 @@ package UsedStore.Controller;
 
 
 import UsedStore.Service.ItemService;
+import UsedStore.Vo.ItemVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.tools.jconsole.JConsoleContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/main")
@@ -41,5 +40,14 @@ public class MainController {
         }
         String insetSaleResult = objectMapper.writeValueAsString(responseData);
         return ResponseEntity.ok(insetSaleResult);
+    }
+
+    @GetMapping("/showItems")
+    public List<ItemVO> test(HttpSession session) throws Exception{
+        System.out.println("하이");
+
+        List<ItemVO> list = itemService.showMain();
+        System.out.println(list);
+        return list;
     }
 }
