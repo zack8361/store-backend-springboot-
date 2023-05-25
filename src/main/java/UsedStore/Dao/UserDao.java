@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -35,6 +36,10 @@ public class UserDao {
 
     public UserVO checkNickName(HashMap<String,Object> map){
         return sqlSession.selectOne(namespace+".checkNickName",map);
+    }
+
+    public List<UserVO> getUser(String userId){
+        return sqlSession.selectList(namespace +".getUser",userId);
     }
 
 }

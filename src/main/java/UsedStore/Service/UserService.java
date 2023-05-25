@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 
 //TestMapper 인터페이스 받아 데이터 조회하는 클래스
 
@@ -35,5 +36,16 @@ public class UserService {
     public UserVO checkNickName(HashMap<String,Object>map){
         return userDao.checkNickName(map);
     }
+
+    // 유저 정보 get.
+
+    public UserVO getUser(String userId) {
+        List<UserVO> users = userDao.getUser(userId);
+        if (!users.isEmpty()) {
+            return users.get(0);
+        }
+        return null;
+    }
+
 
 }

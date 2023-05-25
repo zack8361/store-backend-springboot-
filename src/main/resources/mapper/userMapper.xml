@@ -32,5 +32,11 @@
 		WHERE user_nickname=#{nickName}
 	</select>
 
+<!--	유저 정보 보내기-->
+	<select id="getUser" parameterType="java.lang.String" resultType="UsedStore.Vo.UserVO">
+		SELECT * FROM user WHERE user_email = #{userId}
+	</select>
+
+
 
 </mapper>
