@@ -1,16 +1,16 @@
 package UsedStore.Controller;
 import UsedStore.Service.UserService;
+import UsedStore.Vo.ItemVO;
 import UsedStore.Vo.UserVO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -34,6 +34,7 @@ public class UserController {
         else {
             responseData.put("status","200");
             responseData.put("message","로그인 성공하였습니다!");
+            responseData.put("userId", vo.getUserEmail());
         }
         String loginResult = objectMapper.writeValueAsString(responseData);
         return ResponseEntity.ok(loginResult);
@@ -94,6 +95,24 @@ public class UserController {
         String registerResult = objectMapper.writeValueAsString(responseData);
         return ResponseEntity.ok(registerResult);
     }
+    
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Object> getUser(@PathVariable String userId) throws JsonProcessingException {
+        UserVO user = userService.getUser(userId);
+        HashMap<String,Object> responseData = new HashMap<>();
+
+        if (user != null) {
+            responseData.put("status", "200");
+            responseData.put("message", "제대로 보내짐");
+            responseData.put("userInfo", user);
+        } else {
+            responseData.put("status", "500");
+            responseData.put("message", "안 보내짐");
+        }
+        String registerResult = objectMapper.writeValueAsString(responseData);
+        return ResponseEntity.ok(registerResult);
+    }
+
 
 
 }
