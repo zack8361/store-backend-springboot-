@@ -37,6 +37,9 @@
 		SELECT * FROM user WHERE user_email = #{userId}
 	</select>
 
-
+	<!--마이페이지 이름 찾기-->
+<select id="myPage" parameterType="map" resultType="UsedStore.Vo.MyPageVO">
+	SELECT user_name FROM user WHERE user_email = #{name}
+</select>
 
 </mapper>
