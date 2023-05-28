@@ -43,11 +43,9 @@ public class MainController {
     }
 
     @GetMapping("/showItems")
-    public List<ItemVO> test(HttpSession session) throws Exception{
-        System.out.println("하이");
-
+    public ResponseEntity<Object> test(HttpSession session) throws Exception {
         List<ItemVO> list = itemService.showMain();
-        System.out.println(list);
-        return list;
+        String insetSaleResult = objectMapper.writeValueAsString(list);
+        return ResponseEntity.ok(insetSaleResult);
     }
 }

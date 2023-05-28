@@ -56,6 +56,7 @@ public class UserController {
         }
         String registerResult = objectMapper.writeValueAsString(responseData);
         return ResponseEntity.ok(registerResult);
+
     }
 
     @PostMapping("/checkEmail")
@@ -100,7 +101,7 @@ public class UserController {
     public ResponseEntity<Object> getUser(@PathVariable String userId) throws JsonProcessingException {
         UserVO user = userService.getUser(userId);
         HashMap<String,Object> responseData = new HashMap<>();
-
+        System.out.println(user.getUserName());
         if (user != null) {
             responseData.put("status", "200");
             responseData.put("message", "제대로 보내짐");
@@ -112,7 +113,4 @@ public class UserController {
         String registerResult = objectMapper.writeValueAsString(responseData);
         return ResponseEntity.ok(registerResult);
     }
-
-
-
 }

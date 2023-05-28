@@ -13,6 +13,7 @@
 		VALUES (#{id},#{itemName},#{editorText},#{itemPrice},#{categories},#{gender},#{saleTag},#{saleTitle})
 	</insert>
 
+
 	<select id="showMain" resultType="UsedStore.Vo.ItemVO">
 		SELECT * from item
 	</select>
