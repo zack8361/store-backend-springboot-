@@ -23,4 +23,7 @@ public class ItemService {
         return itemDao.showMain();
     }
 
+    public List<ItemVO> showAll() {
+        return itemDao.showAll();
+    }
 }

@@ -26,7 +26,6 @@
 	</select>
 
 <!-- nickName 중복처리.	-->
-
 	<select id="checkNickName" parameterType="map" resultType="UsedStore.Vo.UserVO">
 		SELECT * FROM user
 		WHERE user_nickname=#{nickName}

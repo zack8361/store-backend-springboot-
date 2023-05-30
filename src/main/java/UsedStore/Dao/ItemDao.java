@@ -25,4 +25,8 @@ public class ItemDao {
     public List<ItemVO> showMain(){
         return sqlSession.selectList(namespace +".showMain");
     }
+
+    public List<ItemVO> showAll() {
+        return sqlSession.selectList(namespace+".showAll");
+    }
 }
