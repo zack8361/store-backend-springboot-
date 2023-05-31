@@ -1,4 +1,5 @@
 package UsedStore.Controller;
+import UsedStore.Core.AES128;
 import UsedStore.Service.UserService;
 import UsedStore.Vo.ItemVO;
 import UsedStore.Vo.UserVO;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/")
+
 public class UserController {
     @Autowired
     UserService userService;
@@ -21,11 +23,16 @@ public class UserController {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private AES128 aes128;
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(HttpSession session, @RequestBody HashMap<String,Object> map) throws Exception{
-
+    public ResponseEntity<Object> login( @RequestBody HashMap<String,Object> map) throws Exception{
+        String res = String.valueOf(map.get("id"));
+        System.out.println(res);
+        map.put("id", aes128.decrypt((String) map.get("id")));
         UserVO vo = userService.login(map);
+
         HashMap<String,String> responseData = new HashMap<>();
         if(vo == null){
             responseData.put("status","500");
@@ -34,15 +41,17 @@ public class UserController {
         else {
             responseData.put("status","200");
             responseData.put("message","로그인 성공하였습니다!");
-            responseData.put("userId", vo.getUserEmail());
+            responseData.put("userId",res);
         }
+
         String loginResult = objectMapper.writeValueAsString(responseData);
         return ResponseEntity.ok(loginResult);
     }
+
     @PostMapping("/register")
     public ResponseEntity<Object> register(HttpSession session, @RequestBody HashMap<String,Object> map ) throws Exception{
-        
-        System.out.println(map);
+
+        map.put("id", aes128.decrypt((String) map.get("id")));
         int result = userService.insertUser(map);
         HashMap<String,String> responseData = new HashMap<>();
 
@@ -56,6 +65,7 @@ public class UserController {
         }
         String registerResult = objectMapper.writeValueAsString(responseData);
         return ResponseEntity.ok(registerResult);
+
     }
 
     @PostMapping("/checkEmail")
@@ -96,23 +106,20 @@ public class UserController {
         return ResponseEntity.ok(registerResult);
     }
     
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<Object> getUser(@PathVariable String userId) throws JsonProcessingException {
-        UserVO user = userService.getUser(userId);
-        HashMap<String,Object> responseData = new HashMap<>();
-
-        if (user != null) {
-            responseData.put("status", "200");
-            responseData.put("message", "제대로 보내짐");
-            responseData.put("userInfo", user);
-        } else {
-            responseData.put("status", "500");
-            responseData.put("message", "안 보내짐");
-        }
-        String registerResult = objectMapper.writeValueAsString(responseData);
-        return ResponseEntity.ok(registerResult);
-    }
-
-
-
+//    @GetMapping("/user/{userId}")
+//    public ResponseEntity<Object> getUser(@PathVariable String userId) throws JsonProcessingException {
+//        UserVO user = userService.getUser(userId);
+//        HashMap<String,Object> responseData = new HashMap<>();
+//        System.out.println(user.getUserName());
+//        if (user != null) {
+//            responseData.put("status", "200");
+//            responseData.put("message", "제대로 보내짐");
+//            responseData.put("userInfo", user);
+//        } else {
+//            responseData.put("status", "500");
+//            responseData.put("message", "안 보내짐");
+//        }
+//        String registerResult = objectMapper.writeValueAsString(responseData);
+//        return ResponseEntity.ok(registerResult);
+//    }
 }

@@ -9,12 +9,21 @@
 
 <!-- 물품 등록.	-->
 	<insert id="insertProduct" parameterType="map">
-		INSERT INTO item(user_id,item_name,item_content,item_price,category_id,item_gender,item_tag,item_title)
+		INSERT INTO
+		    item(user_id,item_name,item_content,item_price,category_id,item_gender,item_tag,item_title)
 		VALUES (#{id},#{itemName},#{editorText},#{itemPrice},#{categories},#{gender},#{saleTag},#{saleTitle})
 	</insert>
 
+<!-- 메인 에서 전체 품목 뽑아주기	-->
 	<select id="showMain" resultType="UsedStore.Vo.ItemVO">
 		SELECT * from item
+	</select>
+
+<!-- 세부 페이지에서 ALL 뽑아주기-->
+	<select id="showAll" resultType="UsedStore.Vo.ItemVO">
+		SELECT *
+		FROM
+		    item
 	</select>
 
 </mapper>

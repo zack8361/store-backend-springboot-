@@ -12,7 +12,7 @@ public class ItemVO {
     private String itemName;
     private String itemContent;
     private String itemPrice;
-    private int categoryId;
+    private String categoryId;
     private String itemGender;
     private String itemTag;
     private String itemTitle;

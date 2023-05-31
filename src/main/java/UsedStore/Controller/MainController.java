@@ -42,12 +42,21 @@ public class MainController {
         return ResponseEntity.ok(insetSaleResult);
     }
 
+    // main 에서 보여주는 모든 물품.
     @GetMapping("/showItems")
-    public List<ItemVO> test(HttpSession session) throws Exception{
-        System.out.println("하이");
-
+    public ResponseEntity<Object> test(HttpSession session) throws Exception {
         List<ItemVO> list = itemService.showMain();
-        System.out.println(list);
-        return list;
+        String insetSaleResult = objectMapper.writeValueAsString(list);
+        return ResponseEntity.ok(insetSaleResult);
+    }
+
+    // all 에서 보여주는 모든 물품.
+    @GetMapping("/all")
+    public ResponseEntity<Object> all(ItemVO vo) throws Exception {
+        System.out.println("@@@@@@@@@@@@@@@@@@all 왔니?");
+        List<ItemVO> list = itemService.showAll();
+
+        String Result = objectMapper.writeValueAsString(list);
+        return ResponseEntity.ok(Result);
     }
 }
