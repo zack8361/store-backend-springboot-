@@ -1,6 +1,7 @@
 package UsedStore.Controller;
 
 
+import UsedStore.Core.AES128;
 import UsedStore.Service.ItemService;
 import UsedStore.Vo.ItemVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,10 +24,13 @@ public class MainController {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private AES128 aes128;
+
     @PostMapping("/sale")
     public ResponseEntity<Object> insertSale (HttpSession session, @RequestBody HashMap<String,Object> map ) throws Exception{
-        // map 으로 찍어보고
-        System.out.println(map);
+        // map 으로 찍어보
+        map.put("id", aes128.decrypt((String) map.get("id")));
         int result = itemService.insertSale(map);
         HashMap<String,String> responseData = new HashMap<>();
 
@@ -55,7 +59,6 @@ public class MainController {
     public ResponseEntity<Object> all(ItemVO vo) throws Exception {
         System.out.println("@@@@@@@@@@@@@@@@@@all 왔니?");
         List<ItemVO> list = itemService.showAll();
-
         String Result = objectMapper.writeValueAsString(list);
         return ResponseEntity.ok(Result);
     }
