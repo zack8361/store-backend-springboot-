@@ -9,7 +9,8 @@ import org.springframework.context.annotation.ImportResource;
 @SpringBootApplication
 @Configuration
 @ImportResource("classpath:databaseContext.xml")
-public class StoreBackApplication {
+public class
+StoreBackApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(StoreBackApplication.class, args);
 	}
