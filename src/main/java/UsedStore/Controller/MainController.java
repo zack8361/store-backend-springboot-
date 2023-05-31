@@ -29,19 +29,19 @@ public class MainController {
 
     @PostMapping("/sale")
     public ResponseEntity<Object> insertSale (HttpSession session, @RequestBody HashMap<String,Object> map ) throws Exception{
-        // map 으로 찍어보
+        System.out.println(map);
         map.put("id", aes128.decrypt((String) map.get("id")));
         int result = itemService.insertSale(map);
         HashMap<String,String> responseData = new HashMap<>();
-
-        if(result == 1){
-            responseData.put("status","200");
-            responseData.put("message","상품등록에 성공하였습니다!");
-        }
-        else {
-            responseData.put("status","500");
-            responseData.put("message","상품등록에 실패하였습니다");
-        }
+//
+//        if(result == 1){
+//            responseData.put("status","200");
+//            responseData.put("message","상품등록에 성공하였습니다!");
+//        }
+//        else {
+//            responseData.put("status","500");
+//            responseData.put("message","상품등록에 실패하였습니다");
+//        }
         String insetSaleResult = objectMapper.writeValueAsString(responseData);
         return ResponseEntity.ok(insetSaleResult);
     }

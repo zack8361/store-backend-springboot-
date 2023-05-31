@@ -105,21 +105,14 @@ public class UserController {
         String registerResult = objectMapper.writeValueAsString(responseData);
         return ResponseEntity.ok(registerResult);
     }
-    
-//    @GetMapping("/user/{userId}")
-//    public ResponseEntity<Object> getUser(@PathVariable String userId) throws JsonProcessingException {
-//        UserVO user = userService.getUser(userId);
-//        HashMap<String,Object> responseData = new HashMap<>();
-//        System.out.println(user.getUserName());
-//        if (user != null) {
-//            responseData.put("status", "200");
-//            responseData.put("message", "제대로 보내짐");
-//            responseData.put("userInfo", user);
-//        } else {
-//            responseData.put("status", "500");
-//            responseData.put("message", "안 보내짐");
-//        }
-//        String registerResult = objectMapper.writeValueAsString(responseData);
-//        return ResponseEntity.ok(registerResult);
-//    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Object> getUser(@PathVariable String userId) throws Exception {
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("userId",aes128.decrypt(userId));
+        
+        List<HashMap<String ,Object>> result = userService.getUser(map);
+        String Result = objectMapper.writeValueAsString(result);
+        return ResponseEntity.ok(Result);
+    }
 }

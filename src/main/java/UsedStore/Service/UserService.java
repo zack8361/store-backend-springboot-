@@ -37,15 +37,11 @@ public class UserService {
         return userDao.checkNickName(map);
     }
 
-    // 유저 정보 get.
-
-    public UserVO getUser(String userId) {
-        List<UserVO> users = userDao.getUser(userId);
-        if (!users.isEmpty()) {
-            return users.get(0);
-        }
-        return null;
+    public List<HashMap<String, Object>> getUser(HashMap<String, Object> map) {
+        return userDao.getUser(map);
     }
+
+    // 유저 정보 get.
 
 
 }
