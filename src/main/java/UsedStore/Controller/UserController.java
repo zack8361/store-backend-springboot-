@@ -110,9 +110,11 @@ public class UserController {
     public ResponseEntity<Object> getUser(@PathVariable String userId) throws Exception {
         HashMap<String,Object> map = new HashMap<>();
         map.put("userId",aes128.decrypt(userId));
-        
         List<HashMap<String ,Object>> result = userService.getUser(map);
+        System.out.println(result.get(0).get("user_name"));
         String Result = objectMapper.writeValueAsString(result);
         return ResponseEntity.ok(Result);
     }
+
+
 }
