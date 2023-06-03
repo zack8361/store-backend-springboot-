@@ -25,9 +25,4 @@
 		FROM
 		    item
 	</select>
-
-	<select id="getPrice" resultType="UsedStore.Vo.MyPageVO">
-		Select * FROM item
-	</select>
-
 </mapper>

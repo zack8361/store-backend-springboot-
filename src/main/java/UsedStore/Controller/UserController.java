@@ -115,6 +115,4 @@ public class UserController {
         String Result = objectMapper.writeValueAsString(result);
         return ResponseEntity.ok(Result);
     }
-
-
 }

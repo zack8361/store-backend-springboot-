@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -29,11 +30,13 @@ public class MyPageController {
     private AES128 aes128;
 
     //판매중 보여주기
-    @GetMapping("/mypage")
-    public ResponseEntity<Object> getItem(MyPageVO myPageVO)throws Exception{
-        List<MyPageVO> list = myPageService.getPrice();
-        String result = objectMapper.writeValueAsString(list);
+    @GetMapping("/mypage/{userId}")
+    public ResponseEntity<Object> getItem(@PathVariable String userId)throws Exception{
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("userId",aes128.decrypt(userId));
+        List<HashMap<String ,Object>> result = myPageService.getPrice(map);
+        String Result = objectMapper.writeValueAsString(result);
         System.out.println("하이하이");
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(Result);
     }
 }

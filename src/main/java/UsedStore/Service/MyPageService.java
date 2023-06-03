@@ -20,7 +20,7 @@ public class MyPageService {
     private MyPageDao myPageDao;
 
 
-    public List<MyPageVO> getPrice() {
-        return myPageDao.getPrice();
+    public List<HashMap<String, Object>> getPrice(HashMap<String, Object> map) {
+        return myPageDao.getPrice(map);
     }
 }
