@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 @Transactional
@@ -18,9 +19,8 @@ public class MyPageService {
     @Autowired
     private MyPageDao myPageDao;
 
-    // 이름 정보 가져오기
-    public MyPageVO getName(HashMap<String, Object> map){
-        return myPageDao.getName(map);
-    }
 
+    public List<MyPageVO> getPrice() {
+        return myPageDao.getPrice();
+    }
 }

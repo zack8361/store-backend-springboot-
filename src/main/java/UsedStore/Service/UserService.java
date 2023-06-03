@@ -37,11 +37,8 @@ public class UserService {
         return userDao.checkNickName(map);
     }
 
+    // user 정보 get
     public List<HashMap<String, Object>> getUser(HashMap<String, Object> map) {
         return userDao.getUser(map);
     }
-
-    // 유저 정보 get.
-
-
 }

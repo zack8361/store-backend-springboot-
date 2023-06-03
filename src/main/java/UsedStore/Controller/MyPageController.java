@@ -1,47 +1,39 @@
 package UsedStore.Controller;
 
+import UsedStore.Core.AES128;
 import UsedStore.Service.MyPageService;
 import UsedStore.Service.UserService;
+import UsedStore.Vo.ItemVO;
 import UsedStore.Vo.MyPageVO;
 import UsedStore.Vo.UserVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
 
 public class MyPageController {
     @Autowired
-    MyPageService mypageService;
+    MyPageService myPageService;
 
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private AES128 aes128;
 
-    @PostMapping("/myPage")
-    public ResponseEntity<Object> getName (HttpSession session, @RequestBody HashMap<String,Object> map ) throws Exception{
-
-        MyPageVO vo = mypageService.getName(map);
-        HashMap<String,String> responseData = new HashMap<>();
-
-        // vo에 아무것도 담겨서 오지않는다면 중복된값이 없는것이다.
-        if(vo == null){
-            responseData.put("status","200");
-            responseData.put("message","이름 전송");
-        }
-        else {
-            responseData.put("status","500");
-            responseData.put("message","이름 전송 실패");
-        }
-        String registerResult = objectMapper.writeValueAsString(responseData);
-        return ResponseEntity.ok(registerResult);
+    //판매중 보여주기
+    @GetMapping("/mypage")
+    public ResponseEntity<Object> getItem(MyPageVO myPageVO)throws Exception{
+        List<MyPageVO> list = myPageService.getPrice();
+        String result = objectMapper.writeValueAsString(list);
+        System.out.println("하이하이");
+        return ResponseEntity.ok(result);
     }
 }

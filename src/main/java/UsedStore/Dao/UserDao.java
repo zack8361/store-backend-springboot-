@@ -38,7 +38,8 @@ public class UserDao {
         return sqlSession.selectOne(namespace+".checkNickName",map);
     }
 
+
     public List<HashMap<String, Object>> getUser(HashMap<String, Object> map) {
-        return sqlSession.selectList(namespace+".getUser",map);
+        return sqlSession.selectList(namespace + ".getUser", map);
     }
 }

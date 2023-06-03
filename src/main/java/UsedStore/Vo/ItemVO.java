@@ -16,4 +16,5 @@ public class ItemVO {
     private String itemGender;
     private String itemTag;
     private String itemTitle;
+    private int status;
 }

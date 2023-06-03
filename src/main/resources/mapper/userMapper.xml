@@ -32,7 +32,7 @@
 	</select>
 
 <!--	유저 정보 보내기-->
-	<select id="getUser" parameterType="java.lang.String" resultType="UsedStore.Vo.UserVO">
+	<select id="getUser" parameterType="java.lang.String" resultType="map">
 		SELECT * FROM user WHERE user_email = #{userId}
 	</select>
 
