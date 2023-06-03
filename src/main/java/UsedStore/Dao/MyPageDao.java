@@ -1,6 +1,5 @@
 package UsedStore.Dao;
 
-import UsedStore.Vo.MyPageVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,9 +15,9 @@ public class MyPageDao {
     @Autowired
     SqlSession sqlSession;
 
-    private static String namespace = "mapper.userMapper";
+    private static String namespace = "mapper.myPageMapper";
 
-    public List<MyPageVO> getPrice() {
-        return sqlSession.selectList(namespace+"getPrice");
+    public List<HashMap<String, Object>> getPrice(HashMap<String, Object> map) {
+        return sqlSession.selectList(namespace+"getPrice", map);
     }
 }
