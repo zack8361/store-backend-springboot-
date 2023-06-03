@@ -19,7 +19,6 @@ public class MyPageService {
     @Autowired
     private MyPageDao myPageDao;
 
-
     public List<HashMap<String, Object>> getPrice(HashMap<String, Object> map) {
         return myPageDao.getPrice(map);
     }
