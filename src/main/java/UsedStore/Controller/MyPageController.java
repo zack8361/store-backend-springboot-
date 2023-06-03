@@ -36,7 +36,7 @@ public class MyPageController {
         map.put("userId",aes128.decrypt(userId));
         List<HashMap<String ,Object>> result = myPageService.getPrice(map);
         String Result = objectMapper.writeValueAsString(result);
-        System.out.println("하이하이");
+        System.out.println("하이하이하이하이");
         return ResponseEntity.ok(Result);
     }
 }

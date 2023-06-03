@@ -6,7 +6,7 @@
 
 
 <mapper namespace="mapper.myPageMapper">
-    <select id="getPrice" resultType="UsedStore.Vo.MyPageVO">
-        Select * FROM item
+    <select id="getPrice" parameterType="java.lang.String" resultType="map">
+        Select * FROM item WHERE user_id = #{userId}
     </select>
 </mapper>
