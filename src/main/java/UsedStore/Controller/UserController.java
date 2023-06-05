@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -111,19 +112,22 @@ public class UserController {
         HashMap<String,Object> map = new HashMap<>();
         map.put("userId",aes128.decrypt(userId));
         List<HashMap<String ,Object>> result = userService.getUser(map);
-        System.out.println(result.get(0).get("user_name"));
+
         String Result = objectMapper.writeValueAsString(result);
         return ResponseEntity.ok(Result);
     }
 
     //판매중 보여주기
-    @GetMapping("/mypage/{userId}")
-    public ResponseEntity<Object> getItem(@PathVariable String userId)throws Exception{
-        HashMap<String,Object> map = new HashMap<>();
-        map.put("userId",aes128.decrypt(userId));
+    @GetMapping("/item")
+    public ResponseEntity<Object> getItem(@RequestParam HashMap<String,Object> map)throws Exception{
+
+
+        System.out.println(map);
+        map.put("userId",aes128.decrypt(map.get("userId").toString()));
+        System.out.println(map);
         List<HashMap<String ,Object>> result = userService.getPrice(map);
         String Result = objectMapper.writeValueAsString(result);
-        System.out.println(result.get(0).get("item_price"));
+
         return ResponseEntity.ok(Result);
     }
 }

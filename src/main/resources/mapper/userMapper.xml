@@ -36,4 +36,10 @@
 		SELECT * FROM user WHERE user_email = #{userId}
 	</select>
 
+<!-- 내가 판매중인거 뽑기 -->
+	<select id="getPrice" parameterType="map" resultType="map">
+		SELECT * FROM item WHERE user_id = #{userId}
+	</select>
+	
+
 </mapper>
