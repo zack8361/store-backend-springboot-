@@ -115,4 +115,15 @@ public class UserController {
         String Result = objectMapper.writeValueAsString(result);
         return ResponseEntity.ok(Result);
     }
+
+    //판매중 보여주기
+    @GetMapping("/mypage/{userId}")
+    public ResponseEntity<Object> getItem(@PathVariable String userId)throws Exception{
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("userId",aes128.decrypt(userId));
+        List<HashMap<String ,Object>> result = userService.getPrice(map);
+        String Result = objectMapper.writeValueAsString(result);
+        System.out.println(result.get(0).get("item_price"));
+        return ResponseEntity.ok(Result);
+    }
 }
