@@ -17,6 +17,8 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
+
+
     // 회원가입
     public int insertUser(HashMap<String, Object> map) {
         return userDao.insertUser(map);
@@ -41,4 +43,11 @@ public class UserService {
     public List<HashMap<String, Object>> getUser(HashMap<String, Object> map) {
         return userDao.getUser(map);
     }
+
+//    public List<HashMap<String, Object>> getPrice(HashMap<String, Object> map) {
+//        return UserDao.getPrice(map);
+//    }
+public List<HashMap<String, Object>> getPrice(HashMap<String, Object> map) {
+        return userDao.getPrice(map);
+}
 }

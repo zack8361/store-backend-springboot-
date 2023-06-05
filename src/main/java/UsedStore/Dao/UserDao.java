@@ -19,6 +19,8 @@ public class UserDao {
 
     private static String namespace = "mapper.userMapper";
 
+
+
     // 회원가입
     public int insertUser(HashMap<String,Object> map){
         return sqlSession.insert(namespace+".insertUser",map);
@@ -41,5 +43,13 @@ public class UserDao {
 
     public List<HashMap<String, Object>> getUser(HashMap<String, Object> map) {
         return sqlSession.selectList(namespace + ".getUser", map);
+    }
+
+//    public List<HashMap<String, Object>> getPrice(HashMap<String, Object> map) {
+//        return sqlSession.selectList(namespace+".getPrice", map);
+//    }
+
+    public List<HashMap<String, Object>> getPrice(HashMap<String, Object> map) {
+        return sqlSession.selectList(namespace+".getPrice", map);
     }
 }

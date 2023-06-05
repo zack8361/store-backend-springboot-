@@ -25,4 +25,9 @@
 		FROM
 		    item
 	</select>
+
+	<select id="getPrice" parameterType="map" resultType="map">
+		Select * FROM item WHERE user_id = #{userId}
+	</select>
+
 </mapper>
