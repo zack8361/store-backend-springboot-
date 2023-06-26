@@ -16,11 +16,9 @@ public class ItemVO {
     private String itemGender;
     private String itemTag;
     private String itemTitle;
-//
     private String itemState;
     private String itemExchange;
     private String address;
-    private byte[] image;
     private String imagePath;
 //
     private int status;

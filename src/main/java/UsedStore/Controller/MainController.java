@@ -71,6 +71,8 @@ public class MainController {
     @PostMapping("/sale")
     public ResponseEntity<Object> insertSale(@RequestPart("images") List<MultipartFile> images,
                                              @RequestPart("saleItemInfo") String saleItemInfoJson) throws Exception {
+
+        String imageFilePath ="";
         // 업로드된 이미지 처리
         for (MultipartFile image : images) {
             if (!image.isEmpty()) {
@@ -79,17 +81,17 @@ public class MainController {
                 Files.copy(image.getInputStream(), destination.toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING); // toAbsolutePath 메서드를 사용하여 절대 경로로 저장
 
 
-                String imageFilePath = destination.toString();
-
-//                itemService.insertSale(imageFilePath);
+                 imageFilePath = destination.toString();
 
                 System.out.println("Image Path: " + imageFilePath); // 데이터베이스에 저장된 이미지 경로 출력
             }
         }
 
         // saleItemInfoJson을 원하는 형식으로 변환하여 사용
-        ObjectMapper objectMapper = new ObjectMapper();
         HashMap<String, Object> saleItemInfo = objectMapper.readValue(saleItemInfoJson, new TypeReference<HashMap<String, Object>>() {});
+
+        saleItemInfo.put("imagePath",imageFilePath);
+        System.out.println("saleItemInfo = " + saleItemInfo);
 
         // SaleItemInfo 객체에 필요한 데이터와 이미지를 저장하고 DB에 등록하는 로직 실행
         int result = itemService.insertSale(saleItemInfo, images);
