@@ -40,6 +40,18 @@
 	<select id="getPrice" parameterType="map" resultType="map">
 		SELECT * FROM item WHERE user_id = #{userId}
 	</select>
+
+	<select id="update" parameterType="map">
+		UPDATE user
+		SET
+			user_pw = #{password},
+			user_name = #{name},
+			user_gender = #{gender},
+			user_phone = #{phone},
+			user_nickname = #{nickName}
+		WHERE
+			user_email = #{id}
+	</select>
 	
 
 </mapper>

@@ -50,4 +50,9 @@ public class UserService {
 public List<HashMap<String, Object>> getPrice(HashMap<String, Object> map) {
         return userDao.getPrice(map);
 }
+
+//회원정보 수정
+    public int update(HashMap<String, String> map) {
+        return userDao.update(map);
+    }
 }
