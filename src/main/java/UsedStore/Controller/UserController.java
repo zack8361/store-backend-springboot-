@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/")
@@ -30,7 +31,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<Object> login( @RequestBody HashMap<String,Object> map) throws Exception{
         String res = String.valueOf(map.get("id"));
-        System.out.println(res);
+//        System.out.println(res);
         map.put("id", aes128.decrypt((String) map.get("id")));
         UserVO vo = userService.login(map);
 
@@ -45,6 +46,7 @@ public class UserController {
             responseData.put("userId",res);
         }
 
+        System.out.println(map);
         String loginResult = objectMapper.writeValueAsString(responseData);
         return ResponseEntity.ok(loginResult);
     }
@@ -129,5 +131,26 @@ public class UserController {
         String Result = objectMapper.writeValueAsString(result);
 
         return ResponseEntity.ok(Result);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Object> getUpdate(@RequestBody HashMap<String, Object> map) throws Exception {
+//        System.out.println(map);
+        map.put("id", aes128.decrypt((String) map.get("id")));
+        HashMap<String, String> responseData = new HashMap<>();
+        HashMap<String, String> userInfo = new HashMap<>();
+        userInfo = (HashMap<String, String>) map.get("userInfo");
+        for (Map.Entry<String, String> entry : userInfo.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            responseData.put(key, value.toString());
+        }
+        responseData.put("id", (String) map.get("id"));
+        System.out.println(responseData);
+
+        int result = userService.update(responseData);
+
+        String updateResult = objectMapper.writeValueAsString(responseData);
+        return ResponseEntity.ok(updateResult);
     }
 }

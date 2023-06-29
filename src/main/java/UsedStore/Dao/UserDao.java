@@ -52,4 +52,8 @@ public class UserDao {
     public List<HashMap<String, Object>> getPrice(HashMap<String, Object> map) {
         return sqlSession.selectList(namespace+".getPrice", map);
     }
+
+    public int update(HashMap<String, String> map) {
+        return sqlSession.update(namespace+ ".update", map);
+    }
 }
