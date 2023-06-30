@@ -2,6 +2,7 @@ package UsedStore.Service;
 import UsedStore.Dao.ItemDao;
 import UsedStore.Vo.ItemVO;
 
+import UsedStore.Vo.WishListVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,5 +27,14 @@ public class ItemService {
 
     public List<ItemVO> showAll() {
         return itemDao.showAll();
+    }
+
+    public WishListVO getWishList(HashMap<String, Object> map) {
+
+        return itemDao.getWishList(map);
+    }
+
+    public int wishListCnt(HashMap<String, Object> map) {
+        return itemDao.wishListCnt(map);
     }
 }

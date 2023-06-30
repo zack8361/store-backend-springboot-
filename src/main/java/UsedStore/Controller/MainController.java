@@ -1,7 +1,5 @@
 package UsedStore.Controller;
-import java.io.File;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,18 +16,15 @@ import java.util.List;
 
 import UsedStore.Core.AES128;
 import UsedStore.Service.ItemService;
-import UsedStore.Vo.ItemVO;
+import UsedStore.Vo.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.tools.jconsole.JConsoleContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @RequestMapping("/main")
@@ -43,25 +38,6 @@ public class MainController {
 
     @Autowired
     private AES128 aes128;
-
-//    @PostMapping("/sale")
-//    public ResponseEntity<Object> insertSale (HttpSession session, @RequestBody HashMap<String,Object> map ) throws Exception{
-//        System.out.println(map);
-//        map.put("id", aes128.decrypt((String) map.get("id")));
-//        int result = itemService.insertSale(map);
-//        HashMap<String,String> responseData = new HashMap<>();
-////
-////        if(result == 1){
-////            responseData.put("status","200");
-////            responseData.put("message","상품등록에 성공하였습니다!");
-////        }
-////        else {
-////            responseData.put("status","500");
-////            responseData.put("message","상품등록에 실패하였습니다");
-////        }
-//        String insetSaleResult = objectMapper.writeValueAsString(responseData);
-//        return ResponseEntity.ok(insetSaleResult);
-//    }
 
 
 
@@ -131,5 +107,45 @@ public class MainController {
         List<ItemVO> list = itemService.showAll();
         String Result = objectMapper.writeValueAsString(list);
         return ResponseEntity.ok(Result);
+    }
+
+    @GetMapping("/wishlist")
+    public ResponseEntity<Object> wishList (@RequestParam HashMap<String ,Object> map) throws Exception{
+//        들어온 ID 값 복호화 하여 다시 map 에 put
+        map.put("userID", aes128.decrypt((String) map.get("userID")));
+//        COUNT 뽑는거
+
+        System.out.println("map = " + map);
+
+
+//        나와 이 아이템 아이디 두개가 연관 되어있는 컬럼이 있는지.
+        WishListVO wishList = itemService.getWishList(map);
+        HashMap<String,String> responseData = new HashMap<>();
+        int result = itemService.wishListCnt(map);
+
+//        만약 DB에 나와 아이디가 있는 컬럼이 없다면?
+        if(wishList == null){
+            responseData.put("status","500");
+            responseData.put("message","데이터가 없음");
+            responseData.put("count",String.valueOf(result));
+        }
+        else {
+            responseData.put("status","200");
+            responseData.put("message","데이터가 있음");
+            responseData.put("count",String.valueOf(result));
+        }
+
+        String Result = objectMapper.writeValueAsString(responseData);
+        return ResponseEntity.ok(Result);
+    }
+
+    @PostMapping("/wishlist")
+    public ResponseEntity<Object> insertWishList(@RequestParam HashMap<String, Object> map) throws Exception {
+        System.out.println("map = " + map);
+        map.put("id", aes128.decrypt((String) map.get("userID")));
+
+        System.out.println("여기는 postmapping");
+
+        return null;
     }
 }

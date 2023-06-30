@@ -2,7 +2,7 @@ package UsedStore.Dao;
 
 
 import UsedStore.Vo.ItemVO;
-import UsedStore.Vo.UserVO;
+import UsedStore.Vo.WishListVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,5 +28,13 @@ public class ItemDao {
 
     public List<ItemVO> showAll() {
         return sqlSession.selectList(namespace+".showAll");
+    }
+
+    public WishListVO getWishList(HashMap<String,Object>map) {
+        return sqlSession.selectOne(namespace +".getWishList",map);
+    }
+
+    public int wishListCnt(HashMap<String, Object> map) {
+        return sqlSession.selectOne(namespace+".wishListCnt",map);
     }
 }

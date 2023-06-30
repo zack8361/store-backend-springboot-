@@ -26,4 +26,23 @@
 		    item
 	</select>
 
+<!-- wishList에 내아이디와 상품이 등록되어있는지 확인 하기.-->
+	<select id="getWishList" parameterType="map" resultType="UsedStore.Vo.WishListVO">
+		SELECT *
+		FROM wish_shop_list
+		WHERE
+		    user_id=#{userID}
+		AND
+		    item_id=#{itemID}
+
+	</select>
+
+
+<!--	wishList 해당 상품 개수 가져오기	-->
+	<select id="wishListCnt" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM wish_shop_list
+		WHERE
+		    item_id=#{itemID}
+	</select>
 </mapper>
