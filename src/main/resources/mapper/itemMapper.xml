@@ -45,4 +45,12 @@
 		WHERE
 		    item_id=#{itemID}
 	</select>
+
+<!--	wishList 담기 insert-->
+
+	<insert id="wishListInsert" parameterType="map">
+		INSERT INTO
+		    wish_shop_list(user_id,item_id)
+		VALUES (#{userID},#{itemID})
+	</insert>
 </mapper>

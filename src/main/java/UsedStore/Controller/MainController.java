@@ -67,8 +67,9 @@ public class MainController {
         HashMap<String, Object> saleItemInfo = objectMapper.readValue(saleItemInfoJson, new TypeReference<HashMap<String, Object>>() {});
 
         saleItemInfo.put("imagePath",imageFilePath);
-        System.out.println("saleItemInfo = " + saleItemInfo);
 
+        System.out.println("saleItemInfo = " + saleItemInfo+"@@@@@@@@@@@@@@@@@@@@@@@@@");
+        saleItemInfo.put("id", aes128.decrypt((String) saleItemInfo.get("id")));
         // SaleItemInfo 객체에 필요한 데이터와 이미지를 저장하고 DB에 등록하는 로직 실행
         int result = itemService.insertSale(saleItemInfo, images);
 
@@ -88,7 +89,6 @@ public class MainController {
         // 데이터 확인을 위한 출력
         System.out.println("images: " + images);
         System.out.println("saleItemInfo: " + saleItemInfo);
-
         return ResponseEntity.ok(insertSaleResult);
     }
 
@@ -142,10 +142,22 @@ public class MainController {
     @PostMapping("/wishlist")
     public ResponseEntity<Object> insertWishList(@RequestParam HashMap<String, Object> map) throws Exception {
         System.out.println("map = " + map);
-        map.put("id", aes128.decrypt((String) map.get("userID")));
+        map.put("userID", aes128.decrypt((String) map.get("userID")));
+        int result = itemService.insertWishList(map);
+        HashMap<String,String> responseData = new HashMap<>();
 
-        System.out.println("여기는 postmapping");
 
-        return null;
+        if(result == 1){
+            responseData.put("status","200");
+            responseData.put("message","찜 등록 성공");
+        }
+        else {
+            responseData.put("status","500");
+            responseData.put("message","찜 등록 삭제");
+        }
+
+        String Result = objectMapper.writeValueAsString(responseData);
+
+        return ResponseEntity.ok(Result);
     }
 }

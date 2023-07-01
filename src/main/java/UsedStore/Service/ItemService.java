@@ -37,4 +37,8 @@ public class ItemService {
     public int wishListCnt(HashMap<String, Object> map) {
         return itemDao.wishListCnt(map);
     }
+
+    public int insertWishList(HashMap<String, Object> map) {
+        return itemDao.insertWishList(map);
+    }
 }

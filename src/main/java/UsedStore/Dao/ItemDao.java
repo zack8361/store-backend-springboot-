@@ -37,4 +37,8 @@ public class ItemDao {
     public int wishListCnt(HashMap<String, Object> map) {
         return sqlSession.selectOne(namespace+".wishListCnt",map);
     }
+
+    public int insertWishList(HashMap<String, Object> map) {
+        return sqlSession.insert(namespace+".wishListInsert",map);
+    }
 }
