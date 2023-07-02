@@ -146,10 +146,20 @@ public class UserController {
             responseData.put(key, value.toString());
         }
         responseData.put("id", (String) map.get("id"));
+
         System.out.println(responseData);
 
         int result = userService.update(responseData);
 
+
+        if(result == 1) {
+            responseData.put("status", "200");
+            responseData.put("message", "수정 되었습니다!");
+        }
+        else {
+            responseData.put("status","500");
+            responseData.put("message","수정 실패 하였습니다!");
+        }
         String updateResult = objectMapper.writeValueAsString(responseData);
         return ResponseEntity.ok(updateResult);
     }
