@@ -40,7 +40,6 @@ public class MainController {
     private AES128 aes128;
 
 
-
     @Value("${image.upload.path}")
     private String imagePath;
 
@@ -56,7 +55,6 @@ public class MainController {
                 Path destination = Paths.get(imagePath, filename); // Paths.get 메서드를 사용하여 경로 생성
                 Files.copy(image.getInputStream(), destination.toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING); // toAbsolutePath 메서드를 사용하여 절대 경로로 저장
 
-
                  imageFilePath = destination.toString();
 
                 System.out.println("Image Path: " + imageFilePath); // 데이터베이스에 저장된 이미지 경로 출력
@@ -68,7 +66,6 @@ public class MainController {
 
         saleItemInfo.put("imagePath",imageFilePath);
 
-        System.out.println("saleItemInfo = " + saleItemInfo+"@@@@@@@@@@@@@@@@@@@@@@@@@");
         saleItemInfo.put("id", aes128.decrypt((String) saleItemInfo.get("id")));
         // SaleItemInfo 객체에 필요한 데이터와 이미지를 저장하고 DB에 등록하는 로직 실행
         int result = itemService.insertSale(saleItemInfo, images);
@@ -103,7 +100,7 @@ public class MainController {
     // all 에서 보여주는 모든 물품.
     @GetMapping("/all")
     public ResponseEntity<Object> all(ItemVO vo) throws Exception {
-        System.out.println("@@@@@@@@@@@@@@@@@@all 왔니?");
+
         List<ItemVO> list = itemService.showAll();
         String Result = objectMapper.writeValueAsString(list);
         return ResponseEntity.ok(Result);
@@ -116,7 +113,6 @@ public class MainController {
 //        COUNT 뽑는거
 
         System.out.println("map = " + map);
-
 
 //        나와 이 아이템 아이디 두개가 연관 되어있는 컬럼이 있는지.
         WishListVO wishList = itemService.getWishList(map);
