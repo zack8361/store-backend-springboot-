@@ -109,12 +109,10 @@ public class UserController {
         return ResponseEntity.ok(registerResult);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<Object> getUser(@PathVariable String userId) throws Exception {
-        HashMap<String,Object> map = new HashMap<>();
-        map.put("userId",aes128.decrypt(userId));
+    @GetMapping("/user/userInfo")
+    public ResponseEntity<Object> getUser(@RequestParam HashMap<String ,Object> map) throws Exception {
+        map.put("userId", aes128.decrypt((String) map.get("userId")));
         List<HashMap<String ,Object>> result = userService.getUser(map);
-
         String Result = objectMapper.writeValueAsString(result);
         return ResponseEntity.ok(Result);
     }
@@ -122,8 +120,6 @@ public class UserController {
     //판매중 보여주기
     @GetMapping("/item")
     public ResponseEntity<Object> getItem(@RequestParam HashMap<String,Object> map)throws Exception{
-
-
         System.out.println(map);
         map.put("userId",aes128.decrypt(map.get("userId").toString()));
         System.out.println(map);
