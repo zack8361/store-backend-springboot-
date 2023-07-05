@@ -55,4 +55,10 @@ public List<HashMap<String, Object>> getPrice(HashMap<String, Object> map) {
     public int update(HashMap<String, String> map) {
         return userDao.update(map);
     }
+
+    public int updateProfileImage(HashMap<String, Object> map) {
+        return userDao.updateProfileImage(map);
+    }
+
+
 }

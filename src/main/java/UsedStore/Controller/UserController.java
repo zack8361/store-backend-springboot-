@@ -4,12 +4,20 @@ import UsedStore.Service.UserService;
 import UsedStore.Vo.ItemVO;
 import UsedStore.Vo.UserVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -159,4 +167,47 @@ public class UserController {
         String updateResult = objectMapper.writeValueAsString(responseData);
         return ResponseEntity.ok(updateResult);
     }
+
+
+    @Value("${profile.upload.path}")
+    private String imagePath;
+
+    @PostMapping("/user/profile")
+    public ResponseEntity<Object> updateUserProfile(@RequestParam HashMap<String ,Object> map,
+                                                    @RequestPart("images") List<MultipartFile> images) throws Exception {
+        String profileImageFilePath = "";
+
+        // 업로드된 이미지 처리
+        for (MultipartFile image : images) {
+            if (!image.isEmpty()) {
+                String filename = StringUtils.cleanPath(image.getOriginalFilename());
+                Path destination = Paths.get(imagePath, filename);
+                Files.copy(image.getInputStream(), destination.toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
+
+                profileImageFilePath = destination.toString();
+                System.out.println("프로필 이미지 경로: " + profileImageFilePath);
+            }
+        }
+
+        // 프로필 사진 업데이트
+        map.put("id", aes128.decrypt((String) map.get("id")));
+        map.put("profileImg", profileImageFilePath);
+        int result = userService.updateProfileImage(map);
+
+        // 응답 데이터 생성
+        HashMap<String, String> responseData = new HashMap<>();
+
+        if (result == 1) {
+            responseData.put("status", "200");
+            responseData.put("message", "프로필 사진 변경 성공!");
+        } else {
+            responseData.put("status", "500");
+            responseData.put("message", "프로필 사진 변경 실패");
+        }
+
+        String updateProfileResult = objectMapper.writeValueAsString(responseData);
+        return ResponseEntity.ok(updateProfileResult);
+    }
+
+
 }

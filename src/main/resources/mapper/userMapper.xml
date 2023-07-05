@@ -9,8 +9,8 @@
 
 <!-- 회원 가입 처리.	-->
 	<insert id="insertUser" parameterType="map">
-		INSERT INTO user(user_email,user_pw,user_name,user_gender,user_phone,user_nickname)
-		VALUES (#{id},#{password},#{name},#{gender},#{phone},#{nickName})
+		INSERT INTO user(user_email,user_pw,user_name,user_gender,user_phone,user_nickname,user_img)
+		VALUES (#{id},#{password},#{name},#{gender},#{phone},#{nickName},#{profileImg})
 	</insert>
 
 <!-- 로그인 처리	-->
@@ -49,6 +49,14 @@
 			user_gender = #{gender},
 			user_phone = #{phone},
 			user_nickname = #{nickName}
+		WHERE
+			user_email = #{id}
+	</select>
+
+	<select id="updateProfileImage" parameterType="map">
+		UPDATE user
+		SET
+			user_img = #{profileImg}
 		WHERE
 			user_email = #{id}
 	</select>
