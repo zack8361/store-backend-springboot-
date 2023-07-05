@@ -8,7 +8,7 @@
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/dapa" />
         <property name="username" value="root" />
-        <property name="password" value="12345678" />
+        <property name="password" value="mysql0220" />
 
         <property name="initialSize" value="5" />
         <property name="maxTotal" value="10" />

@@ -13,4 +13,5 @@ public class UserVO {
     private String userGender;
     private String userPhone;
     private String userNickname;
+    private String userImg;
 }
