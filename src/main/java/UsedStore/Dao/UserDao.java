@@ -56,4 +56,8 @@ public class UserDao {
     public int update(HashMap<String, String> map) {
         return sqlSession.update(namespace+ ".update", map);
     }
+
+    public int updateProfileImage(HashMap<String, Object> map) {
+        return sqlSession.update(namespace+ ".updateProfileImage", map);
+    }
 }
