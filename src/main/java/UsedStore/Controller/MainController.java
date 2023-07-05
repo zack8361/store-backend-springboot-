@@ -39,7 +39,6 @@ public class MainController {
     @Autowired
     private AES128 aes128;
 
-
     @Value("${image.upload.path}")
     private String imagePath;
 
@@ -49,22 +48,20 @@ public class MainController {
 
         String imageFilePath ="";
         // 업로드된 이미지 처리
+        int a = 0;
+        HashMap<String, Object> saleItemInfo = objectMapper.readValue(saleItemInfoJson, new TypeReference<HashMap<String, Object>>() {});
+
         for (MultipartFile image : images) {
             if (!image.isEmpty()) {
+                a++;
                 String filename = StringUtils.cleanPath(image.getOriginalFilename());
                 Path destination = Paths.get(imagePath, filename); // Paths.get 메서드를 사용하여 경로 생성
                 Files.copy(image.getInputStream(), destination.toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING); // toAbsolutePath 메서드를 사용하여 절대 경로로 저장
 
-                 imageFilePath = destination.toString();
-
-                System.out.println("Image Path: " + imageFilePath); // 데이터베이스에 저장된 이미지 경로 출력
+                imageFilePath = destination.toString();
+                saleItemInfo.put("imagePath" + String.valueOf(a),imageFilePath);
             }
         }
-
-        // saleItemInfoJson을 원하는 형식으로 변환하여 사용
-        HashMap<String, Object> saleItemInfo = objectMapper.readValue(saleItemInfoJson, new TypeReference<HashMap<String, Object>>() {});
-
-        saleItemInfo.put("imagePath",imageFilePath);
 
         saleItemInfo.put("id", aes128.decrypt((String) saleItemInfo.get("id")));
         // SaleItemInfo 객체에 필요한 데이터와 이미지를 저장하고 DB에 등록하는 로직 실행
@@ -83,9 +80,6 @@ public class MainController {
 
         String insertSaleResult = objectMapper.writeValueAsString(responseData);
 
-        // 데이터 확인을 위한 출력
-        System.out.println("images: " + images);
-        System.out.println("saleItemInfo: " + saleItemInfo);
         return ResponseEntity.ok(insertSaleResult);
     }
 
@@ -94,6 +88,7 @@ public class MainController {
     public ResponseEntity<Object> test(HttpSession session) throws Exception {
         List<ItemVO> list = itemService.showMain();
         String insetSaleResult = objectMapper.writeValueAsString(list);
+        System.out.println("insetSaleResult = " + insetSaleResult);
         return ResponseEntity.ok(insetSaleResult);
     }
 

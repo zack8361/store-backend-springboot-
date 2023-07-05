@@ -19,7 +19,9 @@ public class ItemVO {
     private String itemState;
     private String itemExchange;
     private String address;
-    private String imagePath;
+    private String imagePath1;
+    private String imagePath2;
+    private String imagePath3;
 //
     private int status;
 }

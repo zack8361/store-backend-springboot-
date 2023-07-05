@@ -10,8 +10,8 @@
 <!-- 물품 등록.	-->
 	<insert id="insertProduct" parameterType="map">
 		INSERT INTO
-		    item(user_id,item_name,item_content,item_price,category_id,item_gender,item_tag,item_title,item_state, item_exchange,address,image_path,status)
-		VALUES (#{id},#{itemName},#{editorText},#{itemPrice},#{categories},#{gender},#{saleTag},#{saleTitle},#{state},#{exchange},#{address},#{imagePath},#{status})
+		    item(user_id,item_name,item_content,item_price,category_id,item_gender,item_tag,item_title,item_state, item_exchange,address,image_path1,image_path2,image_path3,status)
+		VALUES (#{id},#{itemName},#{editorText},#{itemPrice},#{categories},#{gender},#{saleTag},#{saleTitle},#{state},#{exchange},#{address},#{imagePath1},#{imagePath2},#{imagePath3},#{status})
 	</insert>
 
 <!-- 메인 에서 전체 품목 뽑아주기	-->
