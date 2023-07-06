@@ -41,4 +41,8 @@ public class ItemDao {
     public int insertWishList(HashMap<String, Object> map) {
         return sqlSession.insert(namespace+".wishListInsert",map);
     }
+
+    public List<WishListVO> allwishlist(HashMap<String, Object> map) {
+        return sqlSession.selectList(namespace+".allwishlist",map);
+    }
 }

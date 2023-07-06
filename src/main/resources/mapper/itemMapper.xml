@@ -53,4 +53,9 @@
 		    wish_shop_list(user_id,item_id)
 		VALUES (#{userID},#{itemID})
 	</insert>
+
+	<select id="allwishlist" parameterType="map" resultType="UsedStore.Vo.WishListVO">
+		select * from wish_shop_list
+		WHERE user_id=#{id}
+	</select>
 </mapper>

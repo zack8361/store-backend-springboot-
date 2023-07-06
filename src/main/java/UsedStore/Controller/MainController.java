@@ -1,13 +1,20 @@
 package UsedStore.Controller;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Paths;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
+
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,6 +31,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.servlet.http.HttpSession;
 
 @RestController
@@ -91,7 +101,6 @@ public class MainController {
         System.out.println("insetSaleResult = " + insetSaleResult);
         return ResponseEntity.ok(insetSaleResult);
     }
-
     // all 에서 보여주는 모든 물품.
     @GetMapping("/all")
     public ResponseEntity<Object> all(ItemVO vo) throws Exception {
@@ -108,7 +117,6 @@ public class MainController {
 //        COUNT 뽑는거
 
         System.out.println("map = " + map);
-
 //        나와 이 아이템 아이디 두개가 연관 되어있는 컬럼이 있는지.
         WishListVO wishList = itemService.getWishList(map);
         HashMap<String,String> responseData = new HashMap<>();
@@ -150,5 +158,15 @@ public class MainController {
         String Result = objectMapper.writeValueAsString(responseData);
 
         return ResponseEntity.ok(Result);
+    }
+
+
+    @GetMapping("/allwishlist")
+    public ResponseEntity<Object> allWishList(@RequestParam HashMap<String, Object> map) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, UnsupportedEncodingException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, JsonProcessingException {
+        map.put("id", aes128.decrypt((String) map.get("id")));
+        List<WishListVO> result = itemService.allwishlist(map);
+        String res = objectMapper.writeValueAsString(result);
+
+        return ResponseEntity.ok(res);
     }
 }

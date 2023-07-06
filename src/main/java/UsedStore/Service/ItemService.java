@@ -41,4 +41,8 @@ public class ItemService {
     public int insertWishList(HashMap<String, Object> map) {
         return itemDao.insertWishList(map);
     }
+
+    public List<WishListVO> allwishlist(HashMap<String, Object> map) {
+        return itemDao.allwishlist(map);
+    }
 }
