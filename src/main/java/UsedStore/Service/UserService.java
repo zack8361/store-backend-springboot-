@@ -61,4 +61,7 @@ public List<HashMap<String, Object>> getPrice(HashMap<String, Object> map) {
     }
 
 
+    public int deleteUser(HashMap<String, Object> map) {
+        return userDao.deleteUser(map);
+    }
 }
