@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -166,7 +167,24 @@ public class MainController {
         map.put("id", aes128.decrypt((String) map.get("id")));
         List<WishListVO> result = itemService.allwishlist(map);
         String res = objectMapper.writeValueAsString(result);
+        System.out.println(res);
+        return ResponseEntity.ok(res);
+    }
 
+    @GetMapping("/mypagewish")
+    public ResponseEntity<Object> myPageWish(@RequestParam("itemID") List<String> itemIdArr) throws JsonProcessingException {
+        List<ItemVO> result = new ArrayList<>();
+
+        for (String itemID : itemIdArr) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("itemID", itemID);
+
+            List<ItemVO> itemResult = itemService.myPageWish(map);
+            result.addAll(itemResult);
+        }
+
+        String res = objectMapper.writeValueAsString(result);
+        System.out.println(res);
         return ResponseEntity.ok(res);
     }
 }

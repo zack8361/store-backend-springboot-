@@ -45,4 +45,8 @@ public class ItemService {
     public List<WishListVO> allwishlist(HashMap<String, Object> map) {
         return itemDao.allwishlist(map);
     }
+
+    public List<ItemVO> myPageWish(HashMap<String, Object> map) {
+        return itemDao.myPageWish(map);
+    }
 }
