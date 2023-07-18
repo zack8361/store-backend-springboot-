@@ -1,67 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
 <mapper namespace="mapper.itemMapper">
 
-<!-- 물품 등록.	-->
-	<insert id="insertProduct" parameterType="map">
-		INSERT INTO
-		    item(user_id,item_name,item_content,item_price,category_id,item_gender,item_tag,item_title,item_state, item_exchange,address,image_path1,image_path2,image_path3,status)
-		VALUES (#{id},#{itemName},#{editorText},#{itemPrice},#{categories},#{gender},#{saleTag},#{saleTitle},#{state},#{exchange},#{address},#{imagePath1},#{imagePath2},#{imagePath3},#{status})
-	</insert>
+    <!-- 물품 등록.	-->
+    <insert id="insertProduct" parameterType="map">
+        INSERT INTO
+        item(user_id,item_name,item_content,item_price,category_id,item_gender,item_tag,item_title,item_state,
+        item_exchange,address,image_path1,image_path2,image_path3,status)
+        VALUES
+        (#{id},#{itemName},#{editorText},#{itemPrice},#{categories},#{gender},#{saleTag},#{saleTitle},#{state},#{exchange},#{address},#{imagePath1},#{imagePath2},#{imagePath3},#{status})
+    </insert>
 
-<!-- 메인 에서 전체 품목 뽑아주기	-->
-	<select id="showMain" resultType="UsedStore.Vo.ItemVO">
-		SELECT * from item
-	</select>
+    <!-- 메인 에서 전체 품목 뽑아주기	-->
+    <select id="showMain" resultType="UsedStore.Vo.ItemVO">
+        SELECT * from item
+    </select>
 
-<!-- 세부 페이지에서 ALL 뽑아주기-->
-	<select id="showAll" resultType="UsedStore.Vo.ItemVO">
-		SELECT *
-		FROM
-		    item
-	</select>
+    <!-- 세부 페이지에서 ALL 뽑아주기-->
+    <select id="showAll" resultType="UsedStore.Vo.ItemVO">
+        SELECT *
+        FROM
+        item
+    </select>
 
-<!-- wishList에 내아이디와 상품이 등록되어있는지 확인 하기.-->
-	<select id="getWishList" parameterType="map" resultType="UsedStore.Vo.WishListVO">
-		SELECT *
-		FROM wish_shop_list
-		WHERE
-		    user_id=#{userID}
-		AND
-		    item_id=#{itemID}
+    <!-- wishList에 내아이디와 상품이 등록되어있는지 확인 하기.-->
+    <select id="getWishList" parameterType="map" resultType="UsedStore.Vo.WishListVO">
+        SELECT *
+        FROM wish_shop_list
+        WHERE
+        user_id=#{userID}
+        AND
+        item_id=#{itemID}
 
-	</select>
+    </select>
 
 
-<!--	wishList 해당 상품 개수 가져오기	-->
-	<select id="wishListCnt" parameterType="map" resultType="int">
-		SELECT COUNT(*)
-		FROM wish_shop_list
-		WHERE
-		    item_id=#{itemID}
-	</select>
+    <!--	wishList 해당 상품 개수 가져오기	-->
+    <select id="wishListCnt" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM wish_shop_list
+        WHERE
+        item_id=#{itemID}
+    </select>
 
-<!--	wishList 담기 insert-->
+    <!--	wishList 담기 insert-->
 
-	<insert id="wishListInsert" parameterType="map">
-		INSERT INTO
-		    wish_shop_list(user_id,item_id)
-		VALUES (#{userID},#{itemID})
-	</insert>
+    <insert id="wishListInsert" parameterType="map">
+        INSERT INTO
+        wish_shop_list(user_id,item_id)
+        VALUES (#{userID},#{itemID})
+    </insert>
 
-	<select id="allwishlist" parameterType="map" resultType="UsedStore.Vo.WishListVO">
-		select * from wish_shop_list
-		WHERE user_id=#{id}
-	</select>
+    <select id="allwishlist" parameterType="map" resultType="UsedStore.Vo.WishListVO">
+        select * from wish_shop_list
+        WHERE user_id=#{id}
+    </select>
 
-<!--	마이페이지 관심상품 조회-->
-	<select id="myPageWish" parameterType="map" resultType="UsedStore.Vo.ItemVO">
-		select * from item
-		WHERE item_id=#{itemID}
-	</select>
+    <!--	마이페이지 관심상품 조회-->
+    <select id="myPageWish" parameterType="map" resultType="UsedStore.Vo.ItemVO">
+        select * from item
+        WHERE item_id=#{itemID}
+    </select>
 </mapper>

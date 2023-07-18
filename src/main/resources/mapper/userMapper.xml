@@ -60,6 +60,10 @@
 		WHERE
 			user_email = #{id}
 	</select>
-	
+
+	<delete id="deleteUser" parameterType="map">
+		DELETE FROM user
+		WHERE user_email = #{id}
+	</delete>
 
 </mapper>

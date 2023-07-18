@@ -60,4 +60,8 @@ public class UserDao {
     public int updateProfileImage(HashMap<String, Object> map) {
         return sqlSession.update(namespace+ ".updateProfileImage", map);
     }
+
+    public int deleteUser(HashMap<String, Object> map) {
+        return sqlSession.delete(namespace+".deleteUser", map);
+    }
 }
