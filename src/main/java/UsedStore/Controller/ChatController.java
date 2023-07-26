@@ -14,7 +14,7 @@ public class ChatController {
     @SendTo("/topic/chat")
     public ChatVO handleMessage(@Payload ChatVO chatVO){
 
-        System.out.println("여기왓나?");
+        System.out.println("메세지가 도착했습니다");
         System.out.println(chatVO.getUserId());
         System.out.println(chatVO.getMessage());
         return chatVO;

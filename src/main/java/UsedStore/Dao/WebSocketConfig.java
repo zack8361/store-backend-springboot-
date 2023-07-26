@@ -6,20 +6,22 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
-
-
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry){
-        System.out.println("왔니?");
-        registry.enableSimpleBroker("/topic"); //메세지를 구독하고자 하는 클라이언트에게 전달
-        registry.setApplicationDestinationPrefixes("/app"); // 클라이언트에서 메세지 보낼떄
+        System.out.println("여기는 왓니?");
+
+        registry.enableSimpleBroker("/topic");
+        registry.setApplicationDestinationPrefixes("/app");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry){
-        registry.addEndpoint("/ws").withSockJS();
+        registry.addEndpoint("/ws")
+                .setAllowedOrigins("http://localhost:3000") // 여기서 origin을 허용할 도메인을 설정해주세요
+                .withSockJS();
     }
 }
