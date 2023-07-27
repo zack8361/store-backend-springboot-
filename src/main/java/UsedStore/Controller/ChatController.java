@@ -21,7 +21,6 @@ public class ChatController {
         System.out.println("메시지가 도착했습니다");
         System.out.println(chatVO.getUserId());
         System.out.println(chatVO.getMessage());
-
         return chatVO;
     }
 
@@ -34,7 +33,7 @@ public class ChatController {
 
         String roomId = sellerId + "_" + buyerId;
         System.out.println(roomId);
-
+        
         Map<String, String> response = new HashMap<>();
         response.put("roomId", roomId);
         return response;
