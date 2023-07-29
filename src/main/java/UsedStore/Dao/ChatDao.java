@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Repository
 public class ChatDao {
@@ -19,5 +20,9 @@ public class ChatDao {
 
     public int insertList(HashMap<String, Object> map) {
         return sqlSession.insert(namespace+ ".chatList",map);
+    }
+
+    public List<HashMap<String, Object>> getChatReq(HashMap<String, Object> map) {
+        return sqlSession.selectList(namespace + ".getChatReq", map);
     }
 }
