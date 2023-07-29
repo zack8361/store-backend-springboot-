@@ -10,4 +10,6 @@ public class ChatVO {
 
     private String userId;
     private String message;
+    private String userProfile;
+
 }

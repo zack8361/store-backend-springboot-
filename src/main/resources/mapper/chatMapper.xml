@@ -7,7 +7,18 @@
 
 <mapper namespace="mapper.chatMapper">
     <insert id="chatList" parameterType="map">
-        INSERT INTO chat (sender_id,item_id,status)
-        VALUES (#{userID},#{itemID},0)
+        INSERT INTO chat (sender_id,item_id,status,seller_id)
+        VALUES (#{userID},#{itemID},0,#{sellerID})
     </insert>
+
+
+    <select id="getChatReq" resultType="map">
+        SELECT chat.*, user.user_img, user.user_nickname, item.item_title
+        FROM chat
+        JOIN user ON chat.sender_id = user.user_email
+        JOIN item ON chat.item_id = item.item_id
+        WHERE chat.seller_id = #{sellerID}
+    </select>
+
+
 </mapper>
